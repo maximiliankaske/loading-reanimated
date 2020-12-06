@@ -1,26 +1,13 @@
-import Animated, {
-  useSharedValue,
-  withTiming,
-  useAnimatedStyle,
-  Easing,
-} from "react-native-reanimated";
+import Animated, { useSharedValue } from "react-native-reanimated";
 import { View, Button } from "react-native";
 import React from "react";
 import { Dots } from "./src/components";
 
 export default function AnimatedStyleUpdateExample(props) {
-  const randomWidth = useSharedValue(10);
-
-  const config = {
-    duration: 500,
-    easing: Easing.bezier(0.5, 0.01, 0, 1),
+  const isLoading = useSharedValue<boolean>(false);
+  const handlePress = () => {
+    isLoading.value = !isLoading.value;
   };
-
-  const style = useAnimatedStyle(() => {
-    return {
-      width: withTiming(randomWidth.value, config),
-    };
-  });
 
   return (
     <View
@@ -32,6 +19,7 @@ export default function AnimatedStyleUpdateExample(props) {
       }}
     >
       <Dots
+        isLoading={isLoading}
         numberOfDots={3}
         dotProps={{
           backgroundColor: "red",
@@ -39,6 +27,9 @@ export default function AnimatedStyleUpdateExample(props) {
           spacing: 5,
         }}
       />
+      <View style={{ flex: 1 }}>
+        <Button title="press me" onPress={handlePress} />
+      </View>
     </View>
   );
 }
