@@ -6,6 +6,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { View, Button } from "react-native";
 import React from "react";
+import { Dots } from "./src/components";
 
 export default function AnimatedStyleUpdateExample(props) {
   const randomWidth = useSharedValue(10);
@@ -30,16 +31,12 @@ export default function AnimatedStyleUpdateExample(props) {
         flexDirection: "column",
       }}
     >
-      <Animated.View
-        style={[
-          { width: 100, height: 80, backgroundColor: "black", margin: 30 },
-          style,
-        ]}
-      />
-      <Button
-        title="toggle"
-        onPress={() => {
-          randomWidth.value = Math.random() * 350;
+      <Dots
+        numberOfDots={3}
+        dotProps={{
+          backgroundColor: "red",
+          size: 20,
+          spacing: 5,
         }}
       />
     </View>
