@@ -1,13 +1,17 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import Dot, { DotStyles } from "./Dot";
-import Animated, {
-  useDerivedValue,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import Animated, { useDerivedValue, withTiming } from "react-native-reanimated";
+import { DotsWrapper } from ".";
 
-type Variants = "upNDown" | "default";
+type Variants =
+  | "upNDown"
+  | "default"
+  | "snake"
+  | "zoom"
+  | "frequency"
+  | "flip"
+  | "skeeze";
 
 interface DotsContextProps {
   progress: Animated.SharedValue<number>;
@@ -46,23 +50,26 @@ const Dots = ({
   const progress = useDerivedValue(() =>
     withTiming(isLoading.value ? 1 : 0, { duration: 1000 })
   );
+
   const value = { progress, numberOfDots, variant };
 
   return (
-    <DotsContext.Provider value={value}>
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "row",
-        }}
-      >
-        {[...new Array(numberOfDots).fill(0)].map((_, idx) => (
-          <Dot key={idx} index={idx} styles={styles} />
-        ))}
-      </View>
-    </DotsContext.Provider>
+    <DotsWrapper>
+      <DotsContext.Provider value={value}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
+          {[...new Array(numberOfDots).fill(0)].map((_, idx) => (
+            <Dot key={idx} index={idx} styles={styles} />
+          ))}
+        </View>
+      </DotsContext.Provider>
+    </DotsWrapper>
   );
 };
 

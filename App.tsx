@@ -1,11 +1,13 @@
 import Animated, { useSharedValue } from "react-native-reanimated";
-import { View, Button } from "react-native";
+import { View, Button, Dimensions } from "react-native";
 import React from "react";
 import { Dots } from "./src/components";
 
+const { width } = Dimensions.get("window");
+
 const defaultDotStyle = {
-  backgroundColor: "red",
-  size: 20,
+  backgroundColor: "white",
+  size: 10,
   spacing: 5,
 };
 
@@ -18,24 +20,46 @@ export default function AnimatedStyleUpdateExample(props) {
   return (
     <View
       style={{
+        padding: 40,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
+        backgroundColor: "#565DF6",
       }}
     >
-      <View style={{ flex: 1 }}>
-        <Dots isLoading={isLoading} numberOfDots={3} styles={defaultDotStyle} />
-        <Dots
-          isLoading={isLoading}
-          numberOfDots={3}
-          styles={defaultDotStyle}
-          variant="upNDown"
-        />
-      </View>
-      <View style={{ flex: 1 }}>
-        <Button title="press me" onPress={handlePress} />
-      </View>
+      <Dots isLoading={isLoading} numberOfDots={3} styles={defaultDotStyle} />
+      <Dots
+        isLoading={isLoading}
+        numberOfDots={3}
+        styles={defaultDotStyle}
+        variant="upNDown"
+      />
+      <Dots
+        isLoading={isLoading}
+        numberOfDots={3}
+        styles={defaultDotStyle}
+        variant="snake"
+      />
+      <Dots
+        isLoading={isLoading}
+        numberOfDots={3}
+        styles={defaultDotStyle}
+        variant="zoom"
+      />
+      <Dots
+        isLoading={isLoading}
+        numberOfDots={3}
+        styles={defaultDotStyle}
+        variant="frequency"
+      />
+      <Dots
+        isLoading={isLoading}
+        numberOfDots={3}
+        styles={defaultDotStyle}
+        variant="flip"
+      />
+      <Button title="press me" onPress={handlePress} color="white" />
     </View>
   );
 }
