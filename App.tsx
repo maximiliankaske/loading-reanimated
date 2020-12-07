@@ -1,7 +1,7 @@
 import Animated, { useSharedValue } from "react-native-reanimated";
 import { View, Button, Dimensions } from "react-native";
 import React from "react";
-import { Dots } from "./src/components";
+import { Dots, LoadingText } from "./src/components";
 
 const { width } = Dimensions.get("window");
 
@@ -28,6 +28,11 @@ export default function AnimatedStyleUpdateExample(props) {
         backgroundColor: "#565DF6",
       }}
     >
+      <LoadingText
+        style={{ color: "white", fontSize: 30 }}
+        label={["L", "o", "a", "d", "i", "n", "g", "..."]}
+        isLoading={isLoading}
+      />
       <Dots isLoading={isLoading} numberOfDots={3} styles={defaultDotStyle} />
       <Dots
         isLoading={isLoading}
