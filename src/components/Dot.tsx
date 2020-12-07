@@ -1,5 +1,4 @@
 import React from "react";
-import { View, ViewProps } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
@@ -7,13 +6,18 @@ import Animated, {
 } from "react-native-reanimated";
 import { useDotsContext } from "./Dots";
 
-export interface DotProps {
+export interface DotStyles {
   size: number;
   backgroundColor: string;
   spacing: number;
 }
-const Dot = ({ size, backgroundColor, spacing }: DotProps) => {
-  const { progress } = useDotsContext();
+export interface DotProps {
+  index: number;
+  styles: DotStyles;
+}
+const Dot = ({ index, styles }: DotProps) => {
+  const { size, backgroundColor, spacing } = styles;
+  const { progress, variant } = useDotsContext();
   const inputRange = [0, 0.25, 0.5, 0.75, 1];
   const upNDown = [0, spacing, 0, -spacing, 0];
   const opacityRange = [1, 0.5, 0, 0.5, 1];
@@ -25,14 +29,20 @@ const Dot = ({ size, backgroundColor, spacing }: DotProps) => {
     interpolate(progress.value, inputRange, opacityRange)
   );
 
-  const style = useAnimatedStyle(() => ({
+  const defaultStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
+  }));
+
+  const upNDownStyle = useAnimatedStyle(() => ({
     transform: [
       {
         translateY: translateY.value,
       },
     ],
   }));
+
+  const style = variant === "default" ? defaultStyle : upNDownStyle;
+
   return (
     <Animated.View
       style={[
