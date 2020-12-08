@@ -10,7 +10,7 @@ const DotsWrapper = ({ children }: DotsWrapperProps) => {
       style={{
         width: 120,
         height: 40,
-        margin: 10,
+        margin: 2,
         borderRadius: 20,
         backgroundColor: '#696EF6',
       }}

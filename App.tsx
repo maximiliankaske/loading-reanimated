@@ -40,13 +40,25 @@ export default function AnimatedStyleUpdateExample(props) {
       }}
     >
       <LoadingText
-        style={{ color: 'white', fontSize: 30 }}
+        style={{ color: 'white', fontSize: 30, paddingVertical: 10 }}
         label={['L', 'o', 'a', 'd', 'i', 'n', 'g', '...']}
         isLoading={isLoading}
       />
-      {dots.map((variant) => (
-        <Dots key={variant} isLoading={isLoading} numberOfDots={3} styles={defaultDotStyle} variant={variant} />
-      ))}
+      <View style={{ flexDirection: 'row', paddingVertical: 20 }}>
+        {dots.slice(0, 3).map((variant) => (
+          <Dots key={variant} isLoading={isLoading} numberOfDots={3} styles={defaultDotStyle} variant={variant} />
+        ))}
+      </View>
+      <View style={{ flexDirection: 'row', paddingVertical: 20 }}>
+        {dots.slice(3, 6).map((variant) => (
+          <Dots key={variant} isLoading={isLoading} numberOfDots={3} styles={defaultDotStyle} variant={variant} />
+        ))}
+      </View>
+      <View style={{ flexDirection: 'row', paddingVertical: 20 }}>
+        {dots.slice(6, 9).map((variant) => (
+          <Dots key={variant} isLoading={isLoading} numberOfDots={3} styles={defaultDotStyle} variant={variant} />
+        ))}
+      </View>
       <Button title="press me" onPress={handlePress} color="white" />
     </View>
   );
