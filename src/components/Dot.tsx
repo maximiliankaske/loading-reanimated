@@ -1,10 +1,7 @@
-import React from "react";
-import Animated, {
-  useAnimatedStyle,
-  interpolate,
-} from "react-native-reanimated";
-import { toRad } from "react-native-redash";
-import { useDotsContext } from "./Dots";
+import React from 'react';
+import Animated, { useAnimatedStyle, interpolate } from 'react-native-reanimated';
+import { toRad } from 'react-native-redash';
+import { useDotsContext } from './Dots';
 
 const inputRange2 = [0, 1];
 const inputRange3 = [0, 0.5, 1];
@@ -57,23 +54,21 @@ const Dot = ({ index, styles }: DotProps) => {
   }));
 
   const flipStyle = useAnimatedStyle(() => ({
-    transform: [
-      { rotateX: toRad(interpolate(progress.value, inputRange2, flipRange)) },
-    ],
+    transform: [{ rotateX: toRad(interpolate(progress.value, inputRange2, flipRange)) }],
   }));
 
   const skeezeStyle = useAnimatedStyle(() => ({}));
 
   const style =
-    variant === "default"
+    variant === 'default'
       ? defaultStyle
-      : variant === "snake"
+      : variant === 'snake'
       ? snakeStyle
-      : variant === "zoom"
+      : variant === 'zoom'
       ? zoomStyle
-      : variant === "frequency"
+      : variant === 'frequency'
       ? frequencyStyle
-      : variant === "flip"
+      : variant === 'flip'
       ? flipStyle
       : upNDownStyle;
 

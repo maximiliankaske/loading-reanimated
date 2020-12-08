@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import { View } from "react-native";
+import React, { ReactNode } from 'react';
+import { View } from 'react-native';
 
 interface DotsWrapperProps {
   children: ReactNode;
@@ -12,7 +12,7 @@ const DotsWrapper = ({ children }: DotsWrapperProps) => {
         height: 40,
         margin: 10,
         borderRadius: 20,
-        backgroundColor: "#696EF6",
+        backgroundColor: '#696EF6',
       }}
     >
       {children}

@@ -1,17 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { View } from "react-native";
-import Dot, { DotStyles } from "./Dot";
-import Animated, { useDerivedValue, withTiming } from "react-native-reanimated";
-import { DotsWrapper } from ".";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { View } from 'react-native';
+import Dot, { DotStyles } from './Dot';
+import Animated, { useDerivedValue, withTiming } from 'react-native-reanimated';
+import { DotsWrapper } from '.';
 
-type Variants =
-  | "upNDown"
-  | "default"
-  | "snake"
-  | "zoom"
-  | "frequency"
-  | "flip"
-  | "skeeze";
+type Variants = 'upNDown' | 'default' | 'snake' | 'zoom' | 'frequency' | 'flip' | 'skeeze';
 
 interface DotsContextProps {
   progress: Animated.SharedValue<number>;
@@ -22,15 +15,13 @@ interface DotsContextProps {
 const DotsContext = createContext<DotsContextProps>({
   progress: undefined,
   numberOfDots: 0,
-  variant: "default",
+  variant: 'default',
 });
 
 export const useDotsContext = () => {
   const context = useContext(DotsContext);
   if (!context) {
-    throw new Error(
-      "Dots Compound Component child should be in Dots Component"
-    );
+    throw new Error('Dots Compound Component child should be in Dots Component');
   }
   return context;
 };
@@ -41,15 +32,8 @@ interface DotsProps {
   isLoading: Animated.SharedValue<boolean>;
   variant?: Variants;
 }
-const Dots = ({
-  numberOfDots,
-  styles,
-  isLoading,
-  variant = "default",
-}: DotsProps) => {
-  const progress = useDerivedValue(() =>
-    withTiming(isLoading.value ? 1 : 0, { duration: 1000 })
-  );
+const Dots = ({ numberOfDots, styles, isLoading, variant = 'default' }: DotsProps) => {
+  const progress = useDerivedValue(() => withTiming(isLoading.value ? 1 : 0, { duration: 1000 }));
 
   const value = { progress, numberOfDots, variant };
 
@@ -59,9 +43,9 @@ const Dots = ({
         <View
           style={{
             flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row",
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
           }}
         >
           {[...new Array(numberOfDots).fill(0)].map((_, idx) => (
