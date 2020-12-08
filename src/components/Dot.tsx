@@ -37,7 +37,7 @@ const Dot = ({ index, styles }: DotProps) => {
   const snakeTranslateRange = [0, spacing * 2 + size];
   const snakeOpacityRange = [1, isLast ? 0 : 1];
   const snakeTranslateRange2 = [-(spacing * 2 + size), 0];
-  const frequencyRange = [size, size * 2, size];
+  const frequencyRange = [size, size * 3, size];
   const skeezeTranslateRange = [0, ((numberOfDots - 1) / 2 - index) * (size + 2 * spacing), 0];
   const shiftUpTranslateRange = [0, -(size + spacing)];
   const shiftUpTranslateRange2 = [size + spacing, 0];

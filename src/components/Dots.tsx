@@ -47,8 +47,8 @@ const Dots = ({ numberOfDots, styles, isLoading, variant = 'default' }: DotsProp
   const value = { progress, numberOfDots, variant };
 
   return (
-    <DotsWrapper>
-      <DotsContext.Provider value={value}>
+    <DotsContext.Provider value={value}>
+      <DotsWrapper styles={styles}>
         <View
           style={{
             flex: 1,
@@ -61,8 +61,8 @@ const Dots = ({ numberOfDots, styles, isLoading, variant = 'default' }: DotsProp
             <Dot key={idx} index={idx} styles={styles} />
           ))}
         </View>
-      </DotsContext.Provider>
-    </DotsWrapper>
+      </DotsWrapper>
+    </DotsContext.Provider>
   );
 };
 
