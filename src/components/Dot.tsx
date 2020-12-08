@@ -8,12 +8,16 @@ const inputRange2 = [0, 1];
 const inputRange3 = [0, 0.5, 1];
 const inputRange5 = [0, 0.25, 0.5, 0.75, 1];
 const defaultRange = [0, 1, 0];
-const zoomRange = [1, 1.4, 1];
+const zoomRange = [1, 1.5, 1];
 const flipRange = [0, 180];
-const skeezeScaleRange = [1, 1.2, 1];
+const skeezeScaleRange = [1, 1.3, 1];
 const shrinkScaleRange = [2, 1.75, 1.5, 1.25, 1];
 const shrinkOpacityRange = [0, 0.25, 0.5, 0.75, 1];
 const shrinkScaleRange2 = [1, 0.75, 0.5, 0.25, 0];
+const shiftUpScaleRange = [1, 0];
+const shiftUpScaleRange2 = [0, 1];
+const snakeOpacityRange2 = [0, 1];
+
 export interface DotStyles {
   size: number;
   backgroundColor: string;
@@ -26,14 +30,17 @@ export interface DotProps {
 const Dot = ({ index, styles }: DotProps) => {
   const { size, backgroundColor, spacing } = styles;
   const { progress, variant, numberOfDots } = useDotsContext();
+  const isFirst = index === 0;
+  const isLast = index === numberOfDots - 1;
+
   const upNDownRange = [0, spacing * 2, 0, -spacing * 2, 0];
-  const snakeRange = [-(spacing + size) * 2, 0];
+  const snakeTranslateRange = [0, spacing * 2 + size];
+  const snakeOpacityRange = [1, isLast ? 0 : 1];
+  const snakeTranslateRange2 = [-(spacing * 2 + size), 0];
   const frequencyRange = [size, size * 2, size];
   const skeezeTranslateRange = [0, ((numberOfDots - 1) / 2 - index) * (size + 2 * spacing), 0];
   const shiftUpTranslateRange = [0, -(size + spacing)];
-  const shiftUpScaleRange = [1, 0];
   const shiftUpTranslateRange2 = [size + spacing, 0];
-  const shiftUpScaleRange2 = [0, 1];
 
   const defaultStyle = useAnimatedStyle(() => ({
     opacity: interpolate(progress.value, inputRange3, defaultRange),
@@ -48,9 +55,19 @@ const Dot = ({ index, styles }: DotProps) => {
   }));
 
   const snakeStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(progress.value, inputRange2, snakeOpacityRange),
     transform: [
       {
-        translateX: interpolate(progress.value, inputRange2, snakeRange),
+        translateX: interpolate(progress.value, inputRange2, snakeTranslateRange),
+      },
+    ],
+  }));
+
+  const snakeStyle2 = useAnimatedStyle(() => ({
+    opacity: interpolate(progress.value, inputRange2, snakeOpacityRange2),
+    transform: [
+      {
+        translateX: interpolate(progress.value, inputRange2, snakeTranslateRange2),
       },
     ],
   }));
@@ -124,6 +141,9 @@ const Dot = ({ index, styles }: DotProps) => {
       ) : null}
       {variant === 'shiftUp' ? (
         <Animated.View style={[StyleSheet.absoluteFill, staticStyle(styles).default, shiftUp2]} />
+      ) : null}
+      {variant === 'snake' && isFirst ? (
+        <Animated.View style={[StyleSheet.absoluteFill, staticStyle(styles).default, snakeStyle2]} />
       ) : null}
       <Animated.View style={[staticStyle(styles).default, style]} />
     </View>
