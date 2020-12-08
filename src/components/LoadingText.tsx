@@ -9,7 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 interface LoadingTextProps extends TextProps {
-  label: Array<string> | string;
+  label: string[] | string;
   isLoading: Animated.SharedValue<boolean>;
 }
 const LoadingText = ({ label: defaultLabel, isLoading, style, ...props }: LoadingTextProps) => {

@@ -4,7 +4,16 @@ import Dot, { DotStyles } from './Dot';
 import Animated, { useDerivedValue, withTiming } from 'react-native-reanimated';
 import { DotsWrapper } from '.';
 
-type Variants = 'upNDown' | 'default' | 'snake' | 'zoom' | 'frequency' | 'flip' | 'skeeze';
+export type Variants =
+  | 'upNDown'
+  | 'default'
+  | 'snake'
+  | 'zoom'
+  | 'frequency'
+  | 'flip'
+  | 'skeeze'
+  | 'shrink'
+  | 'shiftUp';
 
 interface DotsContextProps {
   progress: Animated.SharedValue<number>;
