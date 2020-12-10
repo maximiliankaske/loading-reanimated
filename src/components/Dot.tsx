@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Animated, { useAnimatedStyle, interpolate } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, interpolate, withDelay, withSpring } from 'react-native-reanimated';
 import { toRad } from 'react-native-redash';
 import { useDotsContext } from './Dots';
 
@@ -29,9 +29,10 @@ export interface DotProps {
 }
 const Dot = ({ index, styles }: DotProps) => {
   const { size, backgroundColor, spacing } = styles;
-  const { progress, variant, numberOfDots } = useDotsContext();
+  const { progress, variant, numberOfDots, duration } = useDotsContext();
   const isFirst = index === 0;
   const isLast = index === numberOfDots - 1;
+  const delay = (index / numberOfDots) * duration;
 
   const upNDownRange = [0, spacing * 2, 0, -spacing * 2, 0];
   const snakeTranslateRange = [0, spacing * 2 + size];

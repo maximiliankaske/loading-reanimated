@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import Dot, { DotStyles } from './Dot';
-import Animated, { useDerivedValue, withTiming } from 'react-native-reanimated';
+import Animated, { useDerivedValue, withTiming, withRepeat, useSharedValue } from 'react-native-reanimated';
 import { DotsWrapper } from '.';
 
 export type Variants =
@@ -19,12 +19,14 @@ interface DotsContextProps {
   progress: Animated.SharedValue<number>;
   numberOfDots: number;
   variant: Variants;
+  duration: number;
 }
 
 const DotsContext = createContext<DotsContextProps>({
   progress: undefined,
   numberOfDots: 0,
   variant: 'default',
+  duration: 0,
 });
 
 export const useDotsContext = () => {
@@ -40,11 +42,20 @@ interface DotsProps {
   numberOfDots: number;
   isLoading: Animated.SharedValue<boolean>;
   variant?: Variants;
+  reverse?: boolean;
+  duration?: number;
 }
-const Dots = ({ numberOfDots, styles, isLoading, variant = 'default' }: DotsProps) => {
-  const progress = useDerivedValue(() => withTiming(isLoading.value ? 1 : 0, { duration: 1000 }));
+const Dots = ({
+  numberOfDots,
+  styles,
+  isLoading,
+  variant = 'default',
+  reverse = false,
+  duration = 1000,
+}: DotsProps) => {
+  const progress = useDerivedValue(() => withRepeat(withTiming(isLoading.value ? 1 : 0, { duration }), -1));
 
-  const value = { progress, numberOfDots, variant };
+  const value = { progress, numberOfDots, variant, duration };
 
   return (
     <DotsContext.Provider value={value}>
